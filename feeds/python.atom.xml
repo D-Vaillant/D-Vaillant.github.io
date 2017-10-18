@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>vaillant.io - python</title><link href="http://vaillant.io/" rel="alternate"></link><link href="http://vaillant.io/feeds/python.atom.xml" rel="self"></link><id>http://vaillant.io/</id><updated>2017-10-16T00:00:00-07:00</updated><entry><title>Ovens, Conveyers, and Queues, Pt. 1</title><link href="http://vaillant.io/ovens-conveyers-queues.html" rel="alternate"></link><published>2017-10-16T00:00:00-07:00</published><updated>2017-10-16T00:00:00-07:00</updated><author><name>D. Vaillant</name></author><id>tag:vaillant.io,2017-10-16:/ovens-conveyers-queues.html</id><summary type="html">&lt;p&gt;Simple modelling with Python.&lt;/p&gt;</summary><content type="html">&lt;p&gt;A dear friend of mine pointed me towards the simple model that is the namesake of this post: ovens, conveyers, and queues. We define some terms first:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Object: Ovens, conveyers, queues, and the other sorts of "machines" that we use.&lt;/li&gt;
+&lt;li&gt;System: Any number of connected objects.&lt;/li&gt;
+&lt;li&gt;Elements: The individual "things" that we feed into our system.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1&gt;The Model&lt;/h1&gt;
+&lt;p&gt;All objects of our model have a central idea: they take in elements from one end (the input), do something with those elements, and then put the elements in whatever object they have on the other end (the output). A physical analogue of this is an assembly line - we have a big stockpile of raw materials, we place them on a moving conveyer belt, and we feed them into a machine that takes a certain amount of time to process them before placing them somewhere else.&lt;/p&gt;
+&lt;p&gt;To faciliate this model we add on several abstract objects which can be easily replaced with other systems. &lt;/p&gt;
+&lt;h2&gt;Queues&lt;/h2&gt;
+&lt;p&gt;A queue is just the CS 101 concept: it has a &lt;code&gt;enqueue&lt;/code&gt; and &lt;code&gt;dequeue&lt;/code&gt; methods which take in elements and then releases elements in the same order as they were taken in. The physical analogue is a queue (or "line").&lt;/p&gt;
+&lt;h2&gt;Conveyers&lt;/h2&gt;
+&lt;p&gt;The physical analogue here is a conveyer belt. Elements are placed on the conveyer belt and take a certain number of steps, ticks, seconds, units-of-time to get to the next object. After a certain number of steps on the conveyer belt, an element is moved to the output object.&lt;/p&gt;
+&lt;p&gt;Conveyers have no limit to the amount of elements that can be placed on them, although we can choose to implement a &lt;em&gt;piecewise capacity&lt;/em&gt; - that is, each "space" in a conveyer belt can have up to &lt;strong&gt;n&lt;/strong&gt; objects on it at any given time.&lt;/p&gt;
+&lt;h2&gt;Ovens&lt;/h2&gt;
+&lt;p&gt;The physical analogue here is, well, an oven. Ovens are just conveyers with a &lt;em&gt;global capacity&lt;/em&gt; - they can take in some number of elements in any order but can have up to &lt;strong&gt;n&lt;/strong&gt; elements, where &lt;strong&gt;n&lt;/strong&gt; is the global capacity of the oven.&lt;/p&gt;
+&lt;h2&gt;The Abstract Objects&lt;/h2&gt;
+&lt;p&gt;These aren't part of the model, strictly speaking, but we include them because they make our life easier. They fall into two groups: sources and sinks.&lt;/p&gt;
+&lt;p&gt;Sources create a stream of elements according to whatever logic we desire. They cannot act as outputs. &lt;/p&gt;
+&lt;p&gt;Sinks take in a stream of elements and do nothing else with them. We can log them, if we want, and use them as "data collection" objects to track how the system as a whole is performing.&lt;/p&gt;
+&lt;h2&gt;Anonymous Elements?&lt;/h2&gt;
+&lt;p&gt;We have not yet touched on an important question about our implementation: are our elements anonymous or do they have identities? That is - is it important that we keep track of which element is which or are they just interchangable units? Our eventual choice here will lead to a difference in implementations - we will begin with anonymous elements and then adapt our implementation to allow for non-anonymity.&lt;/p&gt;
+&lt;h1&gt;Some Physical Analogues&lt;/h1&gt;
+&lt;p&gt;Okay, so this is all well and good. Let's actually get some intuition as to how these pieces fit together.&lt;/p&gt;
+&lt;h2&gt;Grocery Store&lt;/h2&gt;
+&lt;p&gt;You have finished shopping at a store and walk towards the express aisle. It takes you 5 minutes to get to the aisle, 5 minutes to checkout, and another minute to exit the store. The checkout line only holds 3 people at a time.&lt;/p&gt;
+&lt;p&gt;So: We have a conveyer belt with time 5, a queue before the checkout, an oven with time 5 and capacity 3, and a conveyer belt of time 1.&lt;/p&gt;
+&lt;h2&gt;Grocery Store, Redux&lt;/h2&gt;
+&lt;p&gt;Instead of using only the express aisle we instead have multiple lines open. As it turns out, this is a minor change: it still takes 5 minutes to get to the aisles and one minute to exit the store from the lines. However: we model all of the lines as &lt;em&gt;one&lt;/em&gt; Oven, with a larger capacity (of 25) but with the same time.&lt;/p&gt;
+&lt;p&gt;So: We have a conveyer belt with time 5, a queue before the checkout lines, an oven with time 5 and capcity 25, and a conveyer belt of time 1. This is an example of how our objects can abstract away from some physical details and instead treat them as a single coherent thing.&lt;/p&gt;
+&lt;h1&gt;Closing Comments&lt;/h1&gt;
+&lt;p&gt;Next time: we look into implementing some of these objects in Python! &lt;/p&gt;</content><category term="python"></category><category term="modelling"></category></entry></feed>
