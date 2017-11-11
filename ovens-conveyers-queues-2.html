@@ -1,0 +1,147 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" type="text/css" href="D-Vaillant.github.io/theme/stylesheet/style.min.css">
+
+  <link rel="stylesheet" type="text/css" href="D-Vaillant.github.io/theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="D-Vaillant.github.io/theme/font-awesome/css/font-awesome.min.css">
+
+
+
+
+
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="index, follow" />
+
+
+<meta name="author" content="D. Vaillant" />
+<meta name="description" content="Simple modelling with Python." />
+<meta name="keywords" content="python, modelling">
+
+<meta property="og:site_name" content="vaillant.io"/>
+<meta property="og:title" content="Ovens, Conveyers, and Queues, Pt. 2"/>
+<meta property="og:description" content="Simple modelling with Python."/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="D-Vaillant.github.io/ovens-conveyers-queues-2.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2017-11-11 00:00:00-08:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="D-Vaillant.github.io/author/d-vaillant.html">
+<meta property="article:section" content="python"/>
+<meta property="article:tag" content="python"/>
+<meta property="article:tag" content="modelling"/>
+<meta property="og:image" content="/images/profile.png">
+
+  <title>vaillant.io &ndash; Ovens, Conveyers, and Queues, Pt. 2</title>
+
+</head>
+<body>
+  <aside>
+    <div>
+      <a href="D-Vaillant.github.io">
+        <img src="/images/profile.png" alt="vaillant.io" title="vaillant.io">
+      </a>
+      <h1><a href="D-Vaillant.github.io">vaillant.io</a></h1>
+
+<p>A sequence of writings by D. Vaillant.</p>
+
+      <ul class="social">
+      </ul>
+    </div>
+
+
+  </aside>
+  <main>
+
+
+<article class="single">
+  <header>
+      
+    <h1 id="ovens-conveyers-queues-2">Ovens, Conveyers, and Queues, Pt. 2</h1>
+    <p>
+          Posted on Sat 11 November 2017 in <a href="D-Vaillant.github.io/category/python.html">python</a>
+
+
+    </p>
+  </header>
+
+
+  <div>
+    <p>We continue our discussion from <a href="D-Vaillant.github.io/ovens-conveyers-queues.html">last time</a> with some implementations. Control your excitement, folks.</p>
+<h1>Terminology Reference</h1>
+<ul>
+<li>Object: Ovens, conveyers, queues, and the abstract objects (pits, voids, and the various sources)</li>
+<li>System: A connected collection of objects.</li>
+<li>Sources: Objects that create elements. Represent our system's initial point.</li>
+<li>Sinks: Objects that "destroy" elements. Represent our system's terminal point.</li>
+<li>Element: A thing which is passed into objects from a source.</li>
+</ul>
+<h1>The Assumptions</h1>
+<p>We were rather vague on how our pieces might possibly work together. We do not have that luxury now. Instead of tackling the broadest possible implementations we'll start with a narrower one and hopefully work our way up.</p>
+<h2>Elements Are Anonymous</h2>
+<p>This is a big one. We don't care about the identities or the properties of any of our elements: they're just blank units who only have properties in relation to whatever object they happen to occupy. As such, any collection of elements is representable by a natural number. There's "2 people", not "Timothy and Janet, a bickering old couple". </p>
+<p>If we jettison this assumption we would need to implement an "Element" class which holds pertient information. Our sources would need to be able to generate elements in a sensible way.</p>
+<h2>Queues Are Infinite</h2>
+<p>Our first implementation is going to make the following assumptions: queues don't have a limit and they always exist next to a conveyer belt or an oven.</p>
+<p>The infinite assumption is so we don't need to worry about "locking up" - no matter how many elements we feed into a system, if we stop feeding in elements and give it enough time it will process all of the objects we fed into it without any loss. We can imagine that supermarket line getting quite long, but as long as everyone stays in the line (and is patient) eventually everyone will get checked out and head home.</p>
+<p>If we jettison this assumption we would need to add "capacities" to </p>
+<h2>Queues Don't Exist Alone</h2>
+<h1>What We're Left With</h1>
+<p>Queues are infinite, tied to ovens or conveyers, and have no limitations on</p>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="D-Vaillant.github.io/tag/python.html">python</a>
+      <a href="D-Vaillant.github.io/tag/modelling.html">modelling</a>
+    </p>
+  </div>
+
+
+
+    <div class="addthis_relatedposts_inline">
+
+
+</article>
+
+    <footer>
+<p>
+  &copy;  2017 - This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>
+</p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p><p>
+  <a rel="license"
+     href="http://creativecommons.org/licenses/by-sa/4.0/"
+     target="_blank">
+    <img alt="Creative Commons License"
+         title="Creative Commons License"
+         style="border-width:0"
+         src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png"
+         width="80"
+         height="15"/>
+  </a>
+</p>    </footer>
+  </main>
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " vaillant.io ",
+  "url" : "D-Vaillant.github.io",
+  "image": "/images/profile.png",
+  "description": ""
+}
+</script>
+
+</body>
+</html>

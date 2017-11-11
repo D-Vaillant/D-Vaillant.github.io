@@ -1,87 +1,118 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-        <meta charset="utf-8" />
-        <title>vaillant.io</title>
-        <link rel="stylesheet" href="http://vaillant.io/theme/css/main.css" />
-        <link href="http://vaillant.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="vaillant.io Atom Feed" />
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
 
-        <!--[if IE]>
-            <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-        <![endif]-->
+    <link rel="stylesheet" type="text/css" href="D-Vaillant.github.io/theme/stylesheet/style.min.css">
+
+  <link rel="stylesheet" type="text/css" href="D-Vaillant.github.io/theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="D-Vaillant.github.io/theme/font-awesome/css/font-awesome.min.css">
+
+
+
+
+
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="index, follow" />
+
+
+    <meta name="author" content="D. Vaillant" />
+    <meta name="description" content="" />
+<meta property="og:site_name" content="vaillant.io"/>
+<meta property="og:type" content="blog"/>
+<meta property="og:title" content="vaillant.io"/>
+<meta property="og:description" content=""/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="D-Vaillant.github.io"/>
+<meta property="og:image" content="/images/profile.png">
+
+  <title>vaillant.io</title>
+
 </head>
+<body>
+  <aside>
+    <div>
+      <a href="D-Vaillant.github.io">
+        <img src="/images/profile.png" alt="vaillant.io" title="vaillant.io">
+      </a>
+      <h1><a href="D-Vaillant.github.io">vaillant.io</a></h1>
 
-<body id="index" class="home">
-        <header id="banner" class="body">
-                <h1><a href="http://vaillant.io/">vaillant.io </a></h1>
-                <nav><ul>
-                    <li><a href="http://vaillant.io/category/python.html">python</a></li>
-                </ul></nav>
-        </header><!-- /#banner -->
+<p>A sequence of writings by D. Vaillant.</p>
 
-            <aside id="featured" class="body">
-                <article>
-                    <h1 class="entry-title"><a href="http://vaillant.io/ovens-conveyers-queues.html">Ovens, Conveyers, and Queues, Pt. 1</a></h1>
-<footer class="post-info">
-        <abbr class="published" title="2017-10-16T00:00:00-07:00">
-                Published: Mon 16 October 2017
-        </abbr>
+      <ul class="social">
+      </ul>
+    </div>
 
-        <address class="vcard author">
-                By                         <a class="url fn" href="http://vaillant.io/author/d-vaillant.html">D. Vaillant</a>
-        </address>
-<p>In <a href="http://vaillant.io/category/python.html">python</a>.</p>
-<p>tags: <a href="http://vaillant.io/tag/python.html">python</a> <a href="http://vaillant.io/tag/modelling.html">modelling</a> </p>
-</footer><!-- /.post-info --><p>A dear friend of mine pointed me towards the simple model that is the namesake of this post: ovens, conveyers, and queues. We define some terms first:</p>
-<ul>
-<li>Object: Ovens, conveyers, queues, and the other sorts of "machines" that we use.</li>
-<li>System: Any number of connected objects.</li>
-<li>Elements: The individual "things" that we feed into our system.</li>
-</ul>
-<h1>The Model</h1>
-<p>All objects of our model have a central idea: they take in elements from one end (the input), do something with those elements, and then put the elements in whatever object they have on the other end (the output). A physical analogue of this is an assembly line - we have a big stockpile of raw materials, we place them on a moving conveyer belt, and we feed them into a machine that takes a certain amount of time to process them before placing them somewhere else.</p>
-<p>To faciliate this model we add on several abstract objects which can be easily replaced with other systems. </p>
-<h2>Queues</h2>
-<p>A queue is just the CS 101 concept: it has a <code>enqueue</code> and <code>dequeue</code> methods which take in elements and then releases elements in the same order as they were taken in. The physical analogue is a queue (or "line").</p>
-<h2>Conveyers</h2>
-<p>The physical analogue here is a conveyer belt. Elements are placed on the conveyer belt and take a certain number of steps, ticks, seconds, units-of-time to get to the next object. After a certain number of steps on the conveyer belt, an element is moved to the output object.</p>
-<p>Conveyers have no limit to the amount of elements that can be placed on them, although we can choose to implement a <em>piecewise capacity</em> - that is, each "space" in a conveyer belt can have up to <strong>n</strong> objects on it at any given time.</p>
-<h2>Ovens</h2>
-<p>The physical analogue here is, well, an oven. Ovens are just conveyers with a <em>global capacity</em> - they can take in some number of elements in any order but can have up to <strong>n</strong> elements, where <strong>n</strong> is the global capacity of the oven.</p>
-<h2>The Abstract Objects</h2>
-<p>These aren't part of the model, strictly speaking, but we include them because they make our life easier. They fall into two groups: sources and sinks.</p>
-<p>Sources create a stream of elements according to whatever logic we desire. They cannot act as outputs. </p>
-<p>Sinks take in a stream of elements and do nothing else with them. We can log them, if we want, and use them as "data collection" objects to track how the system as a whole is performing.</p>
-<h2>Anonymous Elements?</h2>
-<p>We have not yet touched on an important question about our implementation: are our elements anonymous or do they have identities? That is - is it important that we keep track of which element is which or are they just interchangable units? Our eventual choice here will lead to a difference in implementations - we will begin with anonymous elements and then adapt our implementation to allow for non-anonymity.</p>
-<h1>Some Physical Analogues</h1>
-<p>Okay, so this is all well and good. Let's actually get some intuition as to how these pieces fit together.</p>
-<h2>Grocery Store</h2>
-<p>You have finished shopping at a store and walk towards the express aisle. It takes you 5 minutes to get to the aisle, 5 minutes to checkout, and another minute to exit the store. The checkout line only holds 3 people at a time.</p>
-<p>So: We have a conveyer belt with time 5, a queue before the checkout, an oven with time 5 and capacity 3, and a conveyer belt of time 1.</p>
-<h2>Grocery Store, Redux</h2>
-<p>Instead of using only the express aisle we instead have multiple lines open. As it turns out, this is a minor change: it still takes 5 minutes to get to the aisles and one minute to exit the store from the lines. However: we model all of the lines as <em>one</em> Oven, with a larger capacity (of 25) but with the same time.</p>
-<p>So: We have a conveyer belt with time 5, a queue before the checkout lines, an oven with time 5 and capcity 25, and a conveyer belt of time 1. This is an example of how our objects can abstract away from some physical details and instead treat them as a single coherent thing.</p>
-<h1>Closing Comments</h1>
-<p>Next time: we look into implementing some of these objects in Python! </p>                </article>
-            </aside><!-- /#featured -->
-        <section id="extras" class="body">
-                <div class="social">
-                        <h2>social</h2>
-                        <ul>
-                            <li><a href="http://vaillant.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">atom feed</a></li>
 
-                        </ul>
-                </div><!-- /.social -->
-        </section><!-- /#extras -->
+  </aside>
+  <main>
 
-        <footer id="contentinfo" class="body">
-                <address id="about" class="vcard body">
-                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
-                </address><!-- /#about -->
 
-                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
-        </footer><!-- /#contentinfo -->
+
+
+<article>
+  <header>
+    <h2><a href="D-Vaillant.github.io/ovens-conveyers-queues.html#ovens-conveyers-queues">Ovens, Conveyers, and Queues, Pt. 1</a></h2>
+    <p>
+          Posted on Mon 16 October 2017 in <a href="D-Vaillant.github.io/category/python.html">python</a>
+
+
+          &#8226;     Tagged with
+
+              <a href="D-Vaillant.github.io/tag/python.html">python</a>,              <a href="D-Vaillant.github.io/tag/modelling.html">modelling</a>
+    </p>
+  </header>
+  <div>
+      <p>Simple modelling, prior to Python.</p>
+      <br>
+      <a class="btn" href="D-Vaillant.github.io/ovens-conveyers-queues.html#ovens-conveyers-queues">    Continue reading
+</a>
+  </div>
+</article>
+
+  <div class="pagination">
+  </div>
+
+
+
+
+    <footer>
+<p>
+  &copy;  2017 - This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>
+</p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p><p>
+  <a rel="license"
+     href="http://creativecommons.org/licenses/by-sa/4.0/"
+     target="_blank">
+    <img alt="Creative Commons License"
+         title="Creative Commons License"
+         style="border-width:0"
+         src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png"
+         width="80"
+         height="15"/>
+  </a>
+</p>    </footer>
+  </main>
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " vaillant.io ",
+  "url" : "D-Vaillant.github.io",
+  "image": "/images/profile.png",
+  "description": ""
+}
+</script>
 
 </body>
 </html>
