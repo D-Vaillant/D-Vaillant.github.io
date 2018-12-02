@@ -2,24 +2,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
-
-    <link rel="stylesheet" type="text/css" href="/theme/stylesheet/style.min.css">
-
-  <link rel="stylesheet" type="text/css" href="/theme/pygments/github.min.css">
-  <link rel="stylesheet" type="text/css" href="/theme/font-awesome/css/font-awesome.min.css">
-
-
-    <link href="/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="vaillant.io Atom">
-
-
-
-
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="HandheldFriendly" content="True" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="index, follow" />
+
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" type="text/css" href="../theme/stylesheet/style.min.css">
+
+  <link rel="stylesheet" type="text/css" href="../theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="../theme/font-awesome/css/font-awesome.min.css">
+
+
+
+
+
 
 
 <meta name="author" content="D. Vaillant" />
@@ -30,11 +29,11 @@
 <meta property="og:title" content="Ovens, Conveyers, and Queues, Pt. 2"/>
 <meta property="og:description" content="Simple modelling with Python."/>
 <meta property="og:locale" content="en_US"/>
-<meta property="og:url" content="/drafts/ovens-conveyers-queues-2.html"/>
+<meta property="og:url" content="../drafts/ovens-conveyers-queues-2.html"/>
 <meta property="og:type" content="article"/>
 <meta property="article:published_time" content="2017-11-11 00:00:00-08:00"/>
 <meta property="article:modified_time" content=""/>
-<meta property="article:author" content="/author/d-vaillant.html">
+<meta property="article:author" content="../author/d-vaillant.html">
 <meta property="article:section" content="python"/>
 <meta property="article:tag" content="python"/>
 <meta property="article:tag" content="modelling"/>
@@ -46,10 +45,10 @@
 <body>
   <aside>
     <div>
-      <a href="">
+      <a href="..">
         <img src="/images/profile.png" alt="vaillant.io" title="vaillant.io">
       </a>
-      <h1><a href="">vaillant.io</a></h1>
+      <h1><a href="..">vaillant.io</a></h1>
 
 <p>A sequence of writings by D. Vaillant.</p>
 
@@ -67,7 +66,7 @@
       
     <h1 id="ovens-conveyers-queues-2">Ovens, Conveyers, and Queues, Pt. 2</h1>
     <p>
-          Posted on Sat 11 November 2017 in <a href="/category/python.html">python</a>
+          Posted on Sat 11 November 2017 in <a href="../category/python.html">python</a>
 
 
     </p>
@@ -75,45 +74,48 @@
 
 
   <div>
-    <p>We continue our discussion from <a href="/ovens-conveyers-queues.html">last time</a> with some implementations. Control your excitement, folks.</p>
+    <p>We continue our discussion from <a href="../ovens-conveyers-queues.html">last time</a> with some implementations. Control your excitement, folks.</p>
 <h1>Terminology Reference</h1>
 <ul>
-<li>Object: Ovens, conveyers, queues, and the abstract objects (pits, voids, and the various sources)</li>
-<li>System: A connected collection of objects.</li>
-<li>Sources: Objects that create elements. Represent our system's initial point.</li>
-<li>Sinks: Objects that "destroy" elements. Represent our system's terminal point.</li>
-<li>Element: A thing which is passed into objects from a source.</li>
+<li>Machine: Ovens, conveyers, queues, and the abstract machines (pits, voids, and the various sources)</li>
+<li>System: A connected collection of machines.</li>
+<li>Sources: Machines that create elements. Represent our system's initial point.</li>
+<li>Sinks: Machines that "destroy" elements. Represent our system's terminal point.</li>
+<li>Element: A thing which is passed into machines from a source.</li>
+<li>Global capacity: The total amount of elements that can be processed by an machine (at the same time)</li>
+<li>Piecewise capacity: The amount of elements that can be processed at each stage by an machine (at the same time)</li>
 </ul>
 <h1>The Assumptions</h1>
 <p>We were rather vague on how our pieces might possibly work together. We do not have that luxury now. Instead of tackling the broadest possible implementations we'll start with a narrower one and hopefully work our way up.</p>
 <h2>Elements Are Anonymous</h2>
-<p>This is a big one. We don't care about the identities or the properties of any of our elements: they're just blank units who only have properties in relation to whatever object they happen to occupy. As such, any collection of elements is representable by a natural number. There's "2 people", not "Timothy and Janet, a bickering old couple". </p>
-<p>If we jettison this assumption we would need to implement an "Element" class which holds pertient information. Our sources would need to be able to generate elements in a sensible way.</p>
+<p>This is a big one. We don't care about the identities or the properties of any of our elements: they're just blank units who only have properties in relation to whatever machine they happen to occupy. As such, any collection of elements is representable by a natural number. There's "2 people", not "Timothy and Janet, a bickering old couple". </p>
+<p>If we jettison this assumption we would need to implement an "Element" class which holds pertient information. Our sources would need to be able to generate elements in a sensible way. We'd also need to rework our machines since we would need a new data structure to hold and count our elements (e.g. a list or a set).</p>
 <h2>Queues Are Infinite</h2>
 <p>Our first implementation is going to make the following assumptions: queues don't have a limit and they always exist next to a conveyer belt or an oven.</p>
-<p>The infinite assumption is so we don't need to worry about "locking up" - no matter how many elements we feed into a system, if we stop feeding in elements and give it enough time it will process all of the objects we fed into it without any loss. We can imagine that supermarket line getting quite long, but as long as everyone stays in the line (and is patient) eventually everyone will get checked out and head home.</p>
-<p>If we jettison this assumption we would need to add "capacities" to </p>
+<p>The infinite assumption is so we don't need to worry about "locking up" - no matter how many elements we feed into a system, if we stop feeding in elements and give it enough time it will process all of the machines we fed into it without any loss. We can imagine that supermarket line getting quite long, but as long as everyone stays in the line (and is patient) eventually everyone will get checked out and head home.</p>
+<p>If we jettison this assumption we would need to add "capacities" to our queues. We would also need to figure out how to deal with "lock out" scenarios, where all of our queues are filled to capacity. We could "lock up" machines which are trying to feed into full queues, causing them to stop all processing. Or we could have each machine having an auxiliary basket at their end which cuts into that machine's global capacity. Or both: an machine's "output queue" might have a piecewise capacity that locks up the machine if the machine would otherwise exceed that capacity. And we haven't even discussed the possibility of discarding elements here. Let's put this aside.</p>
 <h2>Queues Don't Exist Alone</h2>
+<p>As a consequence of infinite queues, there's no need to have more than one queue at any given part of a system. This means that any queue will be adjacent to some other kind of machine. Thus, we fold "queues" as properties of the other two machines: ovens and conveyers. </p>
+<p>We put them at the beginning of these machines, since we're interested in making sure the global capacity of our ovens aren't exceeding and nothing else beyond that.</p>
 <h1>What We're Left With</h1>
 <p>Queues are infinite, tied to ovens or conveyers, and have no limitations on</p>
   </div>
   <div class="tag-cloud">
     <p>
-      <a href="/tag/python.html">python</a>
-      <a href="/tag/modelling.html">modelling</a>
+      <a href="../tag/python.html">python</a>
+      <a href="../tag/modelling.html">modelling</a>
     </p>
   </div>
 
 
 
-    <div class="addthis_relatedposts_inline">
 
 
 </article>
 
     <footer>
 <p>
-  &copy;  2017 - This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>
+  &copy;  2018 - This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>
 </p>
 <p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
 </p><p>
@@ -138,7 +140,7 @@
   "@context" : "http://schema.org",
   "@type" : "Blog",
   "name": " vaillant.io ",
-  "url" : "",
+  "url" : "..",
   "image": "/images/profile.png",
   "description": ""
 }

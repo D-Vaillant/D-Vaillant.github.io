@@ -1,0 +1,141 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="index, follow" />
+
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" type="text/css" href="D-Vaillant.github.io/theme/stylesheet/style.min.css">
+
+  <link rel="stylesheet" type="text/css" href="D-Vaillant.github.io/theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="D-Vaillant.github.io/theme/font-awesome/css/font-awesome.min.css">
+
+
+
+
+
+
+
+<meta name="author" content="DVaillant" />
+<meta name="description" content="Using file tagging in Ranger." />
+<meta name="keywords" content="ranger, tagging, file.organization">
+
+<meta property="og:site_name" content="vaillant.io"/>
+<meta property="og:title" content="File Tagging: Wallpapers"/>
+<meta property="og:description" content="Using file tagging in Ranger."/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="D-Vaillant.github.io/drafts/ranger-file-tagging.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2018-06-13 00:00:00-07:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="D-Vaillant.github.io/author/dvaillant.html">
+<meta property="article:section" content="file.management"/>
+<meta property="article:tag" content="ranger"/>
+<meta property="article:tag" content="tagging"/>
+<meta property="article:tag" content="file.organization"/>
+<meta property="og:image" content="/images/profile.png">
+
+  <title>vaillant.io &ndash; File Tagging: Wallpapers</title>
+
+</head>
+<body>
+  <aside>
+    <div>
+      <a href="D-Vaillant.github.io">
+        <img src="/images/profile.png" alt="vaillant.io" title="vaillant.io">
+      </a>
+      <h1><a href="D-Vaillant.github.io">vaillant.io</a></h1>
+
+<p>A sequence of writings by D. Vaillant.</p>
+
+      <ul class="social">
+      </ul>
+    </div>
+
+
+  </aside>
+  <main>
+
+
+<article class="single">
+  <header>
+      
+    <h1 id="ranger-file-tagging">File Tagging: Wallpapers</h1>
+    <p>
+          Posted on Wed 13 June 2018 in <a href="D-Vaillant.github.io/category/filemanagement.html">file.management</a>
+
+
+    </p>
+  </header>
+
+
+  <div>
+    <p>A project that I've kept coming back to was the idea of <cite>virtual tagging</cite> within a file system. The idea was simple: you use a database, you crawl through some &quot;root directory&quot;, you populate a table with rows for each file and you have a many-to-many relationship between Files and Tags (i.e. strings). Some irritations:</p>
+<ul class="simple">
+<li>An interface for adding and removing tags without having to just dig around with the database.</li>
+<li>An interface for actually sorting by these tags in some sort of file manager.</li>
+</ul>
+<p>Now, this sort of thing isn't novel (luckily) - there are lots of differnet projects that aim at the same thing. I started looking into this with a particular usecase in mind: adding tags through Ranger.</p>
+<p>Ranger comes out of the box with &quot;metadata&quot; which are key-value pairs stored in a <cite>.metadata.json</cite> file in a directory. There's a few limitations here:</p>
+<ul class="simple">
+<li>If you move the file, all of the metadata is lost and you need to manually move the entry in the json file to the <cite>.metadata.json</cite> of the new directory.</li>
+<li>There's no non-Ranger interface for dealing with metadata; it's fairly easy to make one (or even just do it manually).</li>
+<li>There isn't a way to actually use this metadata out-of-the-box to do things like &quot;move all files with tag X&quot;. It's implementable using Ranger's API.</li>
+</ul>
+<p>The first issue is resolved by adding a wrapper around the standard move functions in Ranger. The seocnd issue is just a matter of representing &quot;a function that</p>
+
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="D-Vaillant.github.io/tag/ranger.html">ranger</a>
+      <a href="D-Vaillant.github.io/tag/tagging.html">tagging</a>
+      <a href="D-Vaillant.github.io/tag/fileorganization.html">file.organization</a>
+    </p>
+  </div>
+
+
+
+
+
+</article>
+
+    <footer>
+<p>
+  &copy;  2018 - This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>
+</p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p><p>
+  <a rel="license"
+     href="http://creativecommons.org/licenses/by-sa/4.0/"
+     target="_blank">
+    <img alt="Creative Commons License"
+         title="Creative Commons License"
+         style="border-width:0"
+         src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png"
+         width="80"
+         height="15"/>
+  </a>
+</p>    </footer>
+  </main>
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " vaillant.io ",
+  "url" : "D-Vaillant.github.io",
+  "image": "/images/profile.png",
+  "description": ""
+}
+</script>
+
+</body>
+</html>
